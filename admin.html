@@ -1,67 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin - RPSC Notes</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin - RPSC Notes</title>
 <style>
-body{font-family:Arial; padding:20px; background:#f0f6ff}
-.box{background:white; padding:15px; border-radius:10px; margin-bottom:15px}
-input,textarea{width:100%; padding:10px; margin:6px 0; border:1px solid #ccc; border-radius:6px}
-button{padding:10px 15px; background:#0d5cb6; color:white; border:none; border-radius:6px; cursor:pointer}
-.card{border:1px solid #ddd; padding:10px; border-radius:8px; margin:8px 0}
+body{background:#eef6ff;padding:10px;font-family:Arial}
+.box{background:#fff;padding:15px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px #0001}
+input,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}
+button{padding:10px 15px;background:#0d5cb6;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin:3px}
+.btn-green{background:#0a8a42}
+.btn-orange{background:#ff7a00}
+.btn-red{background:red}
+#exportBox{display:none;background:#f0f8ff;border:1.5px dashed #0d5cb6;padding:12px;border-radius:10px;margin-top:10px}
+#exportCode{width:100%;height:150px;font-size:11px;font-family:monospace}
+.card{border:1px solid #ddd;padding:8px;margin:5px 0;border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
 </style>
 </head>
 <body>
-<h2>Admin Panel - RPSC Notes</h2>
-<div id="login">
-  <input type="password" id="pass" placeholder="Password daalo">
-    <button onclick="checkPass()">Login</button>
-    </div>
+<h3 style="color:#0a2a6b">Admin Panel - RPSC Notes</h3>
 
-    <div id="panel" style="display:none">
-      <div class="box">
-          <h3>Naya Notes Add Karo</h3>
-              <input id="tag" placeholder="Tag - ex: Rajasthan GK">
-                  <input id="title" placeholder="Title - ex: Rajasthan History Notes">
-                      <textarea id="desc" placeholder="Description"></textarea>
-                          <input id="link" placeholder="PDF Link (Google Drive)">
-                              <button onclick="addNote()">Add / Save</button>
-                                </div>
-                                  <div id="list"></div>
-                                    <button onclick="clearAll()" style="background:red; margin-top:20px">Sab Delete</button>
-                                    </div>
+<div class="box">
+<h4> + Naya Notes Add Karo</h4>
+<input id="tag" placeholder="Tag - ex: Rajasthan GK">
+<input id="title" placeholder="Title - ex: Rajasthan History Notes PDF">
+<textarea id="desc" placeholder="Description"></textarea>
+<input id="link" placeholder="PDF Link (Google Drive)">
+<input id="img" placeholder="Image Link (Optional) - Nahi doge toh PDF icon lagega">
+<button onclick="add()">Add / Save</button>
+</div>
 
-                                    <script>
-                                    let notes = JSON.parse(localStorage.getItem('rpsc_notes') || '[]');
-                                    function checkPass(){
-                                      if(document.getElementById('pass').value === 'rpsc123'){ // password change kar sakte ho
-                                          document.getElementById('login').style.display='none';
-                                              document.getElementById('panel').style.display='block';
-                                                  showList();
-                                                    } else alert('Galat Password');
-                                                    }
-                                                    function addNote(){
-                                                      let n = {
-                                                          tag: document.getElementById('tag').value,
-                                                              title: document.getElementById('title').value,
-                                                                  desc: document.getElementById('desc').value,
-                                                                      link: document.getElementById('link').value
-                                                                        };
-                                                                          if(!n.title) return alert('Title likho');
-                                                                            notes.unshift(n);
-                                                                              localStorage.setItem('rpsc_notes', JSON.stringify(notes));
-                                                                                showList();
-                                                                                  document.getElementById('title').value=''; document.getElementById('desc').value='';
-                                                                                  }
-                                                                                  function showList(){
-                                                                                    let html='';
-                                                                                      notes.forEach((x,i)=>{
-                                                                                          html+=`<div class="card"><b>${x.title}</b> - ${x.tag} <button onclick="del(${i})" style="float:right;background:red">Delete</button></div>`;
-                                                                                            });
-                                                                                              document.getElementById('list').innerHTML = html;
-                                                                                              }
-                                                                                              function del(i){ notes.splice(i,1); localStorage.setItem('rpsc_notes', JSON.stringify(notes)); showList(); }
-                                                                                              function clearAll(){ if(confirm('Sab delete?')){ localStorage.removeItem('rpsc_notes'); notes=[]; showList(); } }
-                                                                                              </script>
-                                                                                              </body>
-                                                                                              </html>
+<div class="box">
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<button class="btn-green" onclick="exportCode()">📤 Export Code</button>
+<button class="btn-orange" onclick="copyCode()">📋 Copy Code</button>
+<button class="btn-red" onclick="clearAll()">Sab Delete</button>
+</div>
+
+<div id="exportBox">
+<b>Ye code copy karke index.html me defaultNotes me paste karna hai taaki sabko dikhe:</b>
+<textarea id="exportCode" readonly></textarea>
+<p style="font-size:11px;color:#555;margin-top:6px">GitHub > index.html > Edit > defaultNotes ko
