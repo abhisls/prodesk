@@ -1,43 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin - RPSC Notes</title>
-<style>
-body{background:#eef6ff;padding:10px;font-family:Arial}
-.box{background:#fff;padding:15px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px #0001}
-input,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}
-button{padding:10px 15px;background:#0d5cb6;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin:3px}
-.btn-green{background:#0a8a42}
-.btn-orange{background:#ff7a00}
-.btn-red{background:red}
-#exportBox{display:none;background:#f0f8ff;border:1.5px dashed #0d5cb6;padding:12px;border-radius:10px;margin-top:10px}
-#exportCode{width:100%;height:150px;font-size:11px;font-family:monospace}
-.card{border:1px solid #ddd;padding:8px;margin:5px 0;border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
-</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super Admin - RPSC</title>
+<link rel="stylesheet" href="style.css">
+<style>.admin-wrap{max-width:500px;margin:20px auto;padding:15px}.box{background:#fff;padding:15px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px #0001}input,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ccc;border-radius:8px}button{width:100%}</style>
 </head>
 <body>
-<h3 style="color:#0a2a6b">Admin Panel - RPSC Notes</h3>
-
+<div class="admin-wrap">
+<h2 style="color:#0a2a6b;text-align:center">Super Admin Panel</h2>
 <div class="box">
-<h4> + Naya Notes Add Karo</h4>
-<input id="tag" placeholder="Tag - ex: Rajasthan GK">
-<input id="title" placeholder="Title - ex: Rajasthan History Notes PDF">
+<h4>GitHub Settings (Ek baar bharo)</h4>
+<input id="repo" placeholder="username/repo - ex: abssharma1100/rpsc-notes">
+<input id="token" type="password" placeholder="GitHub Token ghp_xxx">
+<small style="font-size:11px;color:#666">Token Settings > Developer settings > Personal tokens > repo tick</small>
+</div>
+<div class="box">
+<h4>Naya Notes Add Karo</h4>
+<input id="tag" placeholder="Tag - Rajasthan GK">
+<input id="title" placeholder="Title">
 <textarea id="desc" placeholder="Description"></textarea>
-<input id="link" placeholder="PDF Link (Google Drive)">
-<input id="img" placeholder="Image Link (Optional) - Nahi doge toh PDF icon lagega">
-<button onclick="add()">Add / Save</button>
+<input id="link" placeholder="PDF Link (Drive Link)">
+<input id="img" placeholder="Image Link (https://...)">
+<button class="btn btn-blue" onclick="pushToGitHub()">🚀 GitHub Pe Save & Live Karo (Auto)</button>
+<button class="btn btn-white" onclick="localSave()">💾 Sirf Local Save (Export ke liye)</button>
+<p id="status" style="font-size:12px;margin-top:8px;text-align:center"></p>
 </div>
-
 <div class="box">
-<div style="display:flex;gap:6px;flex-wrap:wrap">
-<button class="btn-green" onclick="exportCode()">📤 Export Code</button>
-<button class="btn-orange" onclick="copyCode()">📋 Copy Code</button>
-<button class="btn-red" onclick="clearAll()">Sab Delete</button>
+<button class="btn btn-white" onclick="exportData()">📤 Export Code Dikhao</button>
+<textarea id="exportArea" style="display:none;height:150px;font-size:11px;margin-top:10px"></textarea>
 </div>
-
-<div id="exportBox">
-<b>Ye code copy karke index.html me defaultNotes me paste karna hai taaki sabko dikhe:</b>
-<textarea id="exportCode" readonly></textarea>
-<p style="font-size:11px;color:#555;margin-top:6px">GitHub > index.html > Edit > defaultNotes ko
+</div>
+<script>
+function localSave(){
+ let n={tag:tag.value||'General',title:title.value,desc:desc.value,link:link.value||'#',img:img.value||''};
+ if(!n.title) return alert('Title bharo');
+ let old=JSON.parse(localStorage.getItem('rpsc_notes')||'[]');
+ old.unshift(n);
+ localStorage.setItem('rpsc_notes',JSON.stringify(old));
+ alert('Local save ho gaya!');
+}
+async function pushToGitHub(){
+ let repo=document.getElementById('repo').value.trim();
+ let token=document.getElementById('token').value.trim();
+ let tagV=document.getElementById('tag').value||'General';
+ let titleV=document.getElementById('title').value;
+ let descV=document.getElementById('desc').value;
+ let linkV=document.getElementById('link').value||'#';
+ let imgV=document.getElementById('img').value||'';
+ if(!repo||!token||!titleV) return alert('Repo, Token, Title zaruri hai');
+ let status=document.getElementById('status');
+ status.innerText='⏳ GitHub se data la raha hu...';
+ try{
+  let url=`https://api.github.com/repos/${repo}/contents/notes.json`;
+  let res=await fetch(url,{headers:{Authorization:`token ${token}`}});
+  let data=await res.json();
+  let sha=data.sha;
+  let oldContent=JSON.parse(atob(data.content));
+  oldContent.unshift({tag:tagV,title:titleV,desc:descV,link:linkV,img:imgV});
+  let newContent=btoa(unescape(encodeURIComponent(JSON.stringify(oldContent,null,2))));
+  status.innerText='🚀 GitHub pe upload kar raha hu...';
+  await fetch(url,{method:'PUT',headers:{Authorization:`token ${token}`,'Content-Type':'application/json'},body:JSON.stringify({message:`Add ${titleV}`,content:newContent,sha})});
+  status.innerText='✅ Ho gaya! 1 min me site live ho jayegi';
+  alert('Success! Vercel 1 min me auto update karega');
+ }catch(e){status.innerText='❌ Error: '+e.message; alert('Repo name ya Token galat hai');}
+}
+function exportData(){
+ let d=localStorage.getItem('rpsc_notes')||'[]';
+ document.getElementById('exportArea').style.display='block';
+ document.getElementById('exportArea').value=d;
+}
+</script>
+</body>
+</html>
