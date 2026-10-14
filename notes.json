@@ -1,1 +1,100 @@
-[]
+[
+  {
+    "tag": "II Grade - History",
+    "title": "Rajasthan Ke Pramukh Rajvansh - Chauhan, Rathore, Sisodiya",
+    "desc": "Chauhan Vansh, Guhil Vansh, Rathore Vansh, Kachhwaha - II Grade ke liye most important",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/8B0000/FFFFFF?text=History"
+  },
+  {
+    "tag": "II Grade - History",
+    "title": "1857 Ki Kranti Aur Rajasthan",
+    "desc": "Kota, Bharatpur, Naseerabad, Erinpura chhawni - Complete Notes PDF",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/8B0000/FFFFFF?text=1857"
+  },
+  {
+    "tag": "II Grade - History",
+    "title": "Rajasthan Ka Ekikaran - 7 Charan",
+    "desc": "Matsya Sangh se Rajasthan tak - Kab, Kaise, Kaun?",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/8B0000/FFFFFF?text=Ekikaran"
+  },
+  {
+    "tag": "II Grade - Culture",
+    "title": "Rajasthan Ki Kala Sanskriti - Chitrakala, Sangeet, Nritya",
+    "desc": "Phad, Pichhwai, Ghoomar, Kalbeliya, Maand - II Grade Art & Culture",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/FF6B00/FFFFFF?text=Culture"
+  },
+  {
+    "tag": "II Grade - Culture",
+    "title": "Rajasthan Ke Mela, Tyohar, Veshbhusha",
+    "desc": "Pushkar Mela, Teej, Gangaur, Pagdi, Angarkhi - Full Chart",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/FF6B00/FFFFFF?text=Mela"
+  },
+  {
+    "tag": "II Grade - Geography",
+    "title": "Rajasthan Ki Bhaugolik Sanrachna - Aravalli, Thar",
+    "desc": "Aravalli Parvat, Thar Marusthal, Pathar, Maidaan - Map ke saath",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/0a8a42/FFFFFF?text=Geo"
+  },
+  {
+    "tag": "II Grade - Geography",
+    "title": "Rajasthan Ki Jalvayu, Mitti, Vanaspati",
+    "desc": "Jalvayu ke prakar, Mitti ke prakar, Van - II Grade Geography",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/0a8a42/FFFFFF?text=Climate"
+  },
+  {
+    "tag": "II Grade - Geography",
+    "title": "Rajasthan Ki Nadiyaan, Jheel, Sinchai Yojana",
+    "desc": "Chambal, Luni, Banas, Pichola, IGNP - Important Questions",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/0a8a42/FFFFFF?text=River"
+  },
+  {
+    "tag": "II Grade - Polity",
+    "title": "Rajasthan Rajya Vyavastha - Rajyapal, CM, Vidhansabha",
+    "desc": "Rajyapal ki shakti, Mukhyamantri, Vidhansabha, Panchayati Raj",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/0d5cb6/FFFFFF?text=Polity"
+  },
+  {
+    "tag": "II Grade - Science",
+    "title": "RPSC II Grade Science - Bhautik Vigyan (Physics)",
+    "desc": "Gati, Bal, Prakash, Vidyut - Class 9-10 NCERT Based",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/333333/FFFFFF?text=Physics"
+  },
+  {
+    "tag": "II Grade - Science",
+    "title": "RPSC II Grade Rasayan Vigyan (Chemistry)",
+    "desc": "Aml, Kshar, Dhatu, Adhatu, Carbon - Important Reactions",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/333333/FFFFFF?text=Chemistry"
+  },
+  {
+    "tag": "II Grade - Science",
+    "title": "RPSC II Grade Jeev Vigyan (Biology)",
+    "desc": "Koshika, Poshak, Rog, Paritantra - NCERT Notes",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/333333/FFFFFF?text=Biology"
+  },
+  {
+    "tag": "II Grade - Maths",
+    "title": "Ganit - Sankhya Pranali, Beejganit, Rekhaganit",
+    "desc": "Number System, Algebra, Geometry - 100+ Solved Questions",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/000000/FFFFFF?text=Maths"
+  },
+  {
+    "tag": "II Grade - Psychology",
+    "title": "Shiksha Manovigyan - Vikas, Adhigam, Buddhi",
+    "desc": "Bal Vikas, Adhigam Siddhant, Buddhi, Vyaktitva - Paper 1",
+    "link": "#",
+    "img": "https://via.placeholder.com/150/6A0DAD/FFFFFF?text=Psycho"
+  }
+]
