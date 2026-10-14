@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin - RPSC Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:Arial; padding:20px; background:#f0f6ff}
+.box{background:white; padding:15px; border-radius:10px; margin-bottom:15px}
+input,textarea{width:100%; padding:10px; margin:6px 0; border:1px solid #ccc; border-radius:6px}
+button{padding:10px 15px; background:#0d5cb6; color:white; border:none; border-radius:6px; cursor:pointer}
+.card{border:1px solid #ddd; padding:10px; border-radius:8px; margin:8px 0}
+</style>
+</head>
+<body>
+<h2>Admin Panel - RPSC Notes</h2>
+<div id="login">
+  <input type="password" id="pass" placeholder="Password daalo">
+    <button onclick="checkPass()">Login</button>
+    </div>
+
+    <div id="panel" style="display:none">
+      <div class="box">
+          <h3>Naya Notes Add Karo</h3>
+              <input id="tag" placeholder="Tag - ex: Rajasthan GK">
+                  <input id="title" placeholder="Title - ex: Rajasthan History Notes">
+                      <textarea id="desc" placeholder="Description"></textarea>
+                          <input id="link" placeholder="PDF Link (Google Drive)">
+                              <button onclick="addNote()">Add / Save</button>
+                                </div>
+                                  <div id="list"></div>
+                                    <button onclick="clearAll()" style="background:red; margin-top:20px">Sab Delete</button>
+                                    </div>
+
+                                    <script>
+                                    let notes = JSON.parse(localStorage.getItem('rpsc_notes') || '[]');
+                                    function checkPass(){
+                                      if(document.getElementById('pass').value === 'rpsc123'){ // password change kar sakte ho
+                                          document.getElementById('login').style.display='none';
+                                              document.getElementById('panel').style.display='block';
+                                                  showList();
+                                                    } else alert('Galat Password');
+                                                    }
+                                                    function addNote(){
+                                                      let n = {
+                                                          tag: document.getElementById('tag').value,
+                                                              title: document.getElementById('title').value,
+                                                                  desc: document.getElementById('desc').value,
+                                                                      link: document.getElementById('link').value
+                                                                        };
+                                                                          if(!n.title) return alert('Title likho');
+                                                                            notes.unshift(n);
+                                                                              localStorage.setItem('rpsc_notes', JSON.stringify(notes));
+                                                                                showList();
+                                                                                  document.getElementById('title').value=''; document.getElementById('desc').value='';
+                                                                                  }
+                                                                                  function showList(){
+                                                                                    let html='';
+                                                                                      notes.forEach((x,i)=>{
+                                                                                          html+=`<div class="card"><b>${x.title}</b> - ${x.tag} <button onclick="del(${i})" style="float:right;background:red">Delete</button></div>`;
+                                                                                            });
+                                                                                              document.getElementById('list').innerHTML = html;
+                                                                                              }
+                                                                                              function del(i){ notes.splice(i,1); localStorage.setItem('rpsc_notes', JSON.stringify(notes)); showList(); }
+                                                                                              function clearAll(){ if(confirm('Sab delete?')){ localStorage.removeItem('rpsc_notes'); notes=[]; showList(); } }
+                                                                                              </script>
+                                                                                              </body>
+                                                                                              </html>

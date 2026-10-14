@@ -1,0 +1,16 @@
+<div id="notes-container"></div>
+
+<script>
+let defaultNotes = [
+  {tag:"Rajasthan GK", title:"Rajasthan History Notes PDF", desc:"Chauhan Vansh, Rajputana, 1857 ki Kranti", link:"#"},
+    {tag:"Geography", title:"Rajasthan Geography Map Notes", desc:"Aravalli, Thar, Rivers", link:"#"},
+      {tag:"Science", title:"RPSC Science Notes", desc:"Physics Chemistry Biology", link:"#"}
+      ];
+      let saved = JSON.parse(localStorage.getItem('rpsc_notes') || 'null');
+      let allNotes = saved && saved.length>0 ? saved : defaultNotes;
+      let html='';
+      allNotes.forEach(n=>{
+        html+=`<div class="card"><span class="tag">${n.tag}</span><h3>${n.title}</h3><p>${n.desc}</p><a href="${n.link}" target="_blank">Download Free PDF →</a></div><div class="ad-box">GOOGLE AD</div>`;
+        });
+        document.getElementById('notes-container').innerHTML = html;
+        </script>
